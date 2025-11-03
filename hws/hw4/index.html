@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма за учебен предмет</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Форма за учебен предмет</h1>
+        <form action="validate.php" method="POST">
+            <div class="form-group">
+                <label for="name">Име на учебен предмет:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="teacher">Име на преподавател:</label>
+                <input type="text" id="teacher" name="teacher" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Описание:</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="group">Група:</label>
+                <select id="group" name="group" required>
+                    <option value="">Изберете група</option>
+                    <option value="М">М</option>
+                    <option value="ПМ">ПМ</option>
+                    <option value="ОКН">ОКН</option>
+                    <option value="ЯКН">ЯКН</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="credits">Кредити:</label>
+                <input type="number" id="credits" name="credits" min="1" required>
+            </div>
+
+            <button type="submit">Изпрати</button>
+        </form>
+        <?php if (isset($response)): ?>
+            <div id="result" class="<?php echo $response['success'] ? 'success' : 'error'; ?>">
+                <?php echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT); ?>
+            </div>
+        <?php endif; ?>
+    </div>
+</body>
+</html> 
