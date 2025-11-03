@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="bg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/main.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"
+    />
+    <title>Реферат</title>
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>
+        <a href="referat.html">CSS Grid</a>
+      </h1>
+      <button class="burger" id="burger">&#9776;</button>
+      <nav id="links" class="flex flex-direction-column">
+        <a href="#intro">Въведение</a>
+        <a href="#hist">Свойството display и предшествениците на Grid</a>
+        <a href="#introToGrid">Основи на CSS Grid</a>
+        <a href="#examples">Grid в действие - практически примери</a>
+        <a href="#limits">Ограничения и добри практики</a>
+        <a href="#conc">Заключение</a>
+        <a href="#src">Източници</a>
+      </nav>
+    </header>
+
+    <section id="intro" class="intro">
+      <header class="grid grid-r-c-3">
+        <h1 class="heading-l">CSS Grid - Въведение</h1>
+      </header>
+      <div class="container py-3 px-2 flex flex-direction-column">
+        <section>
+          <h1 class="font-weight-700 heading-m my-2">
+            Какво е и кога се появява CSS?
+          </h1>
+          <p>
+            CSS или иначе казано – Cascading Style Sheets е език използван за
+            стилизиране на HTML файлове. CSS "казва" на браузъра как да се
+            заредят елементите в страницата.
+          </p>
+          <p>
+            Появата на CSS се дължи на необходимостта от стилизиране и
+            персонализиране на уеб страниците. С появата си CSS позволява
+            промяна на всеки един HTML елемент. Идеята за него се заражда през
+            1994г. и получава първата си версия две години по-късно през 1996г.
+          </p>
+          <p>
+            Браузърите обаче не внедряват бързо тази нова технология, а чак през
+            2002г. се появява първия браузър с внедрена пълна CSS спецификация.
+          </p>
+        </section>
+
+        <section>
+          <h1 class="font-weight-700 heading-m my-2">Структура</h1>
+          <p>
+            CSS файловете се състоят от така наречени "правила", делящи се на 2
+            типа – селектори и декларационния блок. Всяко CSS правило е
+            препоръчително да завършва с ';'. Макар и използването им да не е
+            напълно задължително, тяхната липса е възможно да доведе до проблеми
+            в стилизацията на елементите.
+          </p>
+          <div class="grid grid-c-2 grid-gap-m">
+            <div>
+              <h3 class="font-weight-600 my-1">Какво е селектора?</h3>
+              <p>
+                Селекторът е низ, който идентифицира един или повече елементи на
+                страницата, следвайки специален синтаксис.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-weight-600 my-1">Какво е декларационен блок?</h3>
+              <p>
+                Декларационния блок от друга страна съдържа една или повече
+                декларации, на свой ред съставени от двойка свойство и стойност.
+              </p>
+            </div>
+          </div>
+          <h3 class="font-weight-600 my-1">Как изглежда CSS?</h3>
+          <p>
+            Както казахме по-рано правилата в CSS са два типа селектор и
+            декларация. Декларацията е честта съдържаща различни правила, всяко
+            от които е изградено от свойство и стойност.
+          </p>
+          <div class="overflow-hid">
+            <pre><code class="language-css">p {
+  font-size: 20px;
+}</code></pre>
+          </div>
+          <p>
+            Тук <i>p</i> е селектора и прилага правилото, че на дадения елемент
+            задава стойността <i>20px</i> на свойството <i>font-size</i>.
+          </p>
+          <p>Даден селектор може да се прилага на повече от един елемент:</p>
+          <div class="overflow-hid">
+            <pre><code class="language-css">h1, h2, h3 {
+  color: blue;
+  font-family: Arial;
+}</code></pre>
+          </div>
+          <p>
+            Селекторите могат да се прилагат освен на HTML тагове като елементи,
+            така и на елементи, които имат като атрибут <i>class</i> или
+            <i>id</i>.
+          </p>
+          <p>
+            Относно форматирането на тези правила няма специфични изисквания. Те
+            могат да бъдат на един ред, на много редове, да съдържат много
+            табове и тн.
+          </p>
+          <div class="overflow-hid">
+            <pre><code class="language-css">
+/* Едно и също правило, форматирано по различни начини */
+p { color: red; font-size: 20px; }
+
+p {
+  color: red;
+  font-size: 20px;
+}
+
+        p { 
+  color: red; 
+          font-size: 20px; 
+    }</code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h1 class="font-weight-700 heading-m my-2">Какво е CSS Grid?</h1>
+          <p>
+            Стига толкова обаче за CSS идва реда да си говорим в конкретика за
+            CSS Grid. CSS Grid Layout или иначе казано "решетка" е двуизмерна
+            система за оформление, базирана на мрежа, която в сравнение с всяка
+            система за уеб оформление от миналото напълно променя начина, по
+            който проектираме потребителски интерфейси.
+          </p>
+          <p>
+            Преди появата на CSS Grid подреждането на елементите върху
+            страниците се осъществяваше чрез таблици и след това, чрез така
+            наречените floats позиционирания и inline-block, но тези хакове не
+            са пълноценно решение на проблемите свързани с всички видове
+            позиционирания. Много готин метод на подравняване е Flexbox, но не е
+            напълно ефективен, защото предоставя само еднопосочно позициониране.
+          </p>
+          <p>
+            Точно заради нуждата от инстумент за двуизмерно позициониране на
+            елементите се появява и CSS Grid. Въпреки че идеята за подравняване
+            на елементи към колони е приложена на някои страници още през 2011
+            г., този стандарт се поддържа едва от около 2017 г. .[6]
+          </p>
+        </section>
+
+        <section>
+          <h1 class="font-weight-700 heading-m my-2">Малко CSS Grid термини</h1>
+          <div class="grid grid-r-3 grid-c-2 grid-gap-m">
+            <div class="overflow-hid">
+              <h3 class="font-weight-600 my-1">
+                Решетъчен контейнер – grid container
+              </h3>
+              <p>
+                Елементът, върху който <i>display: grid</i> се прилага. Това е
+                пряк родител на всички елементи на мрежата.
+              </p>
+              <pre><code class="language-css">.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 100px 100px;
+}</code></pre>
+            </div>
+            <div class="overflow-hid">
+              <h3 class="font-weight-600 my-1">
+                Решетъчен елемент – grid item
+              </h3>
+              <p>Децата (т.е. преките наследници) на контейнера на мрежата.</p>
+              <pre><code class="language-html">&lt;div class="container">
+  &lt;div class="item"> &lt;/div>
+  &lt;div class="item">
+    &lt;p class="sub-item"> &lt;/p>
+  &lt;/div>
+  &lt;div class="item"> &lt;/div>
+&lt;/div></code></pre>
+            </div>
+            <div>
+              <h3 class="font-weight-600 my-1">Grid line</h3>
+              <p>
+                Разделителните линии, които изграждат структурата на решетката.
+                Те могат да бъдат или вертикални („линии на мрежата на колони“),
+                или хоризонтални („линии на мрежата на редове“) и да се намират
+                от двете страни на ред или колона.
+              </p>
+              <div class="flex flex-direction-column flex-center">
+                <div class="img img-ex-grid-line"></div>
+                <p>
+                  Фиг. 1 - Източник:
+                  <a
+                    href="https://css-tricks.com/snippets/css/complete-guide-grid/"
+                    >[4]</a
+                  >
+                </p>
+              </div>
+            </div>
+            <div>
+              <h3 class="font-weight-600 my-1">Grid Cell</h3>
+              <p>
+                Пространството между два съседни реда и две съседни колонни
+                линии на мрежата.
+              </p>
+              <div class="flex flex-direction-column flex-center">
+                <div class="img img-ex-grid-cell"></div>
+                <p>
+                  Фиг. 2 - Източник:
+                  <a
+                    href="https://css-tricks.com/snippets/css/complete-guide-grid/"
+                    >[4]</a
+                  >
+                </p>
+              </div>
+            </div>
+            <div>
+              <h3 class="font-weight-600 my-1">Grid Track</h3>
+              <p>
+                Пространството между две съседни линии на мрежата. Можете да
+                мислите за тях като за колоните или редовете на мрежата.
+              </p>
+              <div class="flex flex-direction-column flex-center">
+                <div class="img img-ex-grid-track"></div>
+                <p>
+                  Фиг. 3 - Източник:
+                  <a
+                    href="https://css-tricks.com/snippets/css/complete-guide-grid/"
+                    >[4]</a
+                  >
+                </p>
+              </div>
+            </div>
+            <div>
+              <h3 class="font-weight-600 my-1">Grid Area</h3>
+              <p>
+                Областта на мрежата може да бъде съставена от произволен брой
+                клетки на мрежата.
+              </p>
+              <div class="flex flex-direction-column flex-center">
+                <div class="img img-ex-grid-area"></div>
+                <p>
+                  Фиг. 4 - Източник:
+                  <a
+                    href="https://css-tricks.com/snippets/css/complete-guide-grid/"
+                    >[4]</a
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="hist" class="hist">
+      <header class="grid grid-r-c-3">
+        <h1 class="heading-l">Свойството <i>display</i> и предшествениците на Grid</h1>
+      </header>
+      <div class="container py-3 px-2 flex flex-direction-column">
+        <section>
+          <h1 class="font-weight-700 heading-m my-2">
+            Какво прави <i>display</i>?
+          </h1>
+          <p>
+            Свойството display на даден обект определя как той се изобразява от
+            браузъра. Възможните стойности на display включват: block, inline,
+            none, contents, flow, flow-root, table, flex, grid, list-item,
+            inline-block, inline-table, inline-flex, inline-grid,
+            inline-list-item
+          </p>
+          <h3 class="font-weight-700 heading-s my-2">
+            Какво правят основните стойности?
+          </h3>
+          <div class="grid grid-r-c-2 grid-gap-m">
+            <div>
+              <h3 class="font-weight-600 my-1">Inline</h3>
+              <p>
+                Повечето HTML тагове използват <i>display: inline</i> по
+                подразбиране с изключение на някои като:
+                <i>div, p, section.</i> Inline елементите нямат
+                <i>margin, padding</i> или <i>width и height.</i> Можете да
+                добавите <i>margin, padding</i> или <i>width и height,</i> но
+                това няма да промени изгледа на страницата, защото те биват
+                изчислени автоманично.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-weight-600 my-1">inline-block</h3>
+              <p>
+                Подобно на <i>inline</i>, но с <i>inline-block width</i> и
+                <i>height</i> се прилага, както посочите.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-weight-600 my-1">block</h3>
+              <p>
+                Както споменахме, обикновено елементите се показват в един ред,
+                с изключение на някои елементи, включително:
+                <i>div, p, section, ul,</i> които се задават като
+                <i>block</i> от браузъра. С <i>display: block</i> елементите се
+                подреждат един след друг, вертикално и всеки елемент заема 100%
+                от страницата.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-weight-600 my-1">None</h3>
+              <p>
+                Използването <i>display: none</i> кара елемент да изчезне. Все
+                още е там в HTML, но просто не се вижда в браузъра.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h1 class="font-weight-700 heading-m my-2">
+            Предшествениците на Grid - floating и cleaning
+          </h1>
+          <p>
+            <i>Float</i> - Плаването е CSS свойство, което кара някой елемент да
+            "плава" по самата уеб страница. Този тип хак се използва за
+            подходящото позициониране на елементите по уебстраницата, но на
+            моменти този <i>float</i> може да бъде доста досаден (говоря от
+            личен опит). Възможните стойности на <i>float</i> са
+            <i>left, right, none</i>.
+          </p>
+          <p>
+            Примерна употреба е, ако имаме 3 картинки, които искаме да подравним
+            отдясно, то ще използваме <i>float: right</i>. По този начин тези
+            картинки ще се подредят една до друга отдясно, докато не се запълни
+            цялата ширина на реда и тогава елементите слизат на долния ред.
+          </p>
+          <div class="flex flex-direction-column flex-center my-1">
+            <div class="img img-ex-float"></div>
+            <p>
+              Фиг. 5
+            </p>
+          </div>
+          <pre><code>&lt;!DOCTYPE html>
+&lt;html>
+&lt;head>
+&lt;style>
+* {
+  box-sizing: border-box;
+}
+
+.box {
+  float: right;
+  width: 33.33%;
+  padding: 50px;
+  backgound-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.box p {
+	color: #000;
+  background: #ffffffcc;
+}
+
+&lt;/style>
+&lt;/head>
+&lt;body>
+
+&lt;h2>Grid of Boxes</h2>
+&lt;p>Float boxes side by side:</p>
+
+&lt;div class="clearfix">
+  &lt;div class="box" style="background-image: url(https://i.pinimg.com/736x/88/98/65/889865e2df8b49c05875c62cf9c5670f.jpg);">
+  &lt;p>Some text inside the box.</p>
+  &lt;/div>
+  &lt;div class="box" style="background-image: url(https://i.pinimg.com/736x/88/16/c3/8816c30e1832155a652f25d20c19cd69.jpg);">
+  &lt;p>Some text inside the box.</p>
+  &lt;/div>
+  &lt;div class="box" style="background-image:url(https://i.pinimg.com/736x/08/2f/99/082f99b78191c8007a011747f239b237.jpg);">
+  &lt;p>Some text inside the box.</p>
+  &lt;/div>
+  &lt;div class="box" style="background-image:url(https://i.pinimg.com/736x/36/6f/f2/366ff24851b7dcb0e9fad55cd0a87dfe.jpg);">
+  &lt;p>Some text inside the box.</p>
+  &lt;/div>
+&lt;/div>
+
+&lt;/body>
+&lt;/html>
+          </code></pre>
+          <p class="my-1">
+            Ако искаме картинките да бъдат подравнени в ляво, но вместо
+            хоризонтално да бъдат подредени вертикално, то ще добавим
+            <i>clear: left</i>. По същия начин възможните стойности за
+            <i>clear</i> са <i>left, right, both, none</i>.
+          </p>
+          <p>
+            Свойството <i>clear</i> определя какво трябва да се случи с елемента, който е до плаващ елемент.
+          </p>
+          
+          <div class="flex flex-direction-column flex-center">
+            <div class="img img-ex-clear"></div>
+            <p>Фиг. 6</p>
+          </div>
+          <pre><code>&lt;!DOCTYPE html>
+&lt;html>
+&lt;head>
+&lt;style>
+* {
+  box-sizing: border-box;
+}
+
+.box {
+  float: left;
+  width: 33.33%;
+  padding: 50px;
+  backgound-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  clear:left;
+}
+
+.box p {
+	color: #000;
+    background: #ffffffcc;
+}
+
+&lt;/style>
+&lt;/head>
+&lt;body>
+
+&lt;h2>Grid of Boxes</h2>
+&lt;p>Float boxes side by side:</p>
+
+&lt;div class="clearfix">
+  &lt;div class="box" style="background-image: url(https://i.pinimg.com/736x/88/98/65/889865e2df8b49c05875c62cf9c5670f.jpg);">
+  &lt;p>Some text inside the box.</p>
+  &lt;/div>
+  &lt;div class="box" style="background-image: url(https://i.pinimg.com/736x/88/16/c3/8816c30e1832155a652f25d20c19cd69.jpg);">
+  &lt;p>Some text inside the box.</p>
+  &lt;/div>
+  &lt;div class="box" style="background-image:url(https://i.pinimg.com/736x/08/2f/99/082f99b78191c8007a011747f239b237.jpg);">
+  &lt;p>Some text inside the box.</p>
+  &lt;/div>
+  &lt;div class="box" style="background-image:url(https://i.pinimg.com/736x/36/6f/f2/366ff24851b7dcb0e9fad55cd0a87dfe.jpg);">
+  &lt;p>Some text inside the box.</p>
+  &lt;/div>
+&lt;/div>
+
+&lt;/body>
+&lt;/html>
+          </code></pre>
+        </section>
+
+        <section>
+          <h1 class="font-weight-700 heading-m my-2">
+            Появата на Grid и Flexbox
+          </h1>
+          <p>
+            С появата на Flexbox и CSS Grid всички проблеми от типа създадени от
+            досадната употреба на <i>clear</i> и <i>float</i> се изчистват. Нека
+            си поговорим малко за това какво представлява <i>Flexbox</i>. В
+            сравнение с CSS Grid (който е двуизмерен), <i>flexbox</i> е
+            едноизмерен модел на оформление. Той ще контролира оформлението въз
+            основа на ред или колона, но не заедно едновременно. Основната цел
+            на <i>flexbox</i> е да позволи на елементите да запълнят цялото
+            пространство, предлагано от техния контейнер, в зависимост от някои
+            правила, които задавате.
+          </p>
+        </section>
+      </div>
+    </section>
+
+    <section id="introToGrid" class="introToGrid">
+      <header class="grid grid-r-c-3">
+        <h1 class="heading-l">Основи на CSS Grid</h1>
+      </header>
+      <div class="container py-3 px-2 flex flex-direction-column">
+        <section>
+          <h1 class="font-weight-700 heading-m my-2">
+            Какво представлява CSS Grid Layout?
+          </h1>
+          <p>
+            CSS Grid е фундаментално нов подход за изграждане на оформления с
+            помощта на CSS. Към април 2019 г., всички основни браузъри (с
+            изключение на IE, който никога няма да има поддръжка за него) вече
+            поддържат тази технология, покривайки 92% от всички потребители.
+          </p>
+          <h3 class="font-weight-700 heading-s my-2">CSS Grid vs. Flexbox</h3>
+          <p>
+            CSS Grid не е конкурент на Flexbox, защото те работят по различен
+            начин. CSS Grid работи с 2 измерения (редове И колони), докато
+            Flexbox работи с едно измерение (редове ИЛИ колони).
+          </p>
+        </section>
+        <section>
+          <h1 class="font-weight-700 heading-m my-2">
+            Създаване и основни CSS Grid свойства
+          </h1>
+          <p>
+            Оформлението на CSS Grid се активира върху контейнерен елемент
+            (който може да бъде <i>div</i> или всеки друг HTML елемент), чрез
+            настройка <i>display: grid</i>.
+          </p>
+          <div class="grid grid-r-2 grid-c-2 grid-gap-m">
+            <div>
+              <h3 class="font-weight-600 my-1">Свойства за контейнера</h3>
+              <ul>
+                <li><i>display: grid</i> - дефинира grid контейнер</li>
+                <li><i>grid-template-columns</i> - дефинира колоните</li>
+                <li><i>grid-template-rows</i> - дефинира редовете</li>
+                <li><i>grid-template-areas</i> - дефинира областите</li>
+                <li><i>gap</i> - разстояние между елементите</li>
+                <li><i>justify-items</i> - хоризонтално подравняване</li>
+                <li><i>align-items</i> - вертикално подравняване</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-weight-600 my-1">Свойства за елементите</h3>
+              <ul>
+                <li><i>grid-column</i> - позиция на колона</li>
+                <li><i>grid-row</i> - позиция на ред</li>
+                <li><i>grid-area</i> - име на област</li>
+                <li><i>justify-self</i> - хоризонтално подравняване</li>
+                <li><i>align-self</i> - вертикално подравняване</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-weight-600 my-1">Специални единици и функции</h3>
+              <ul>
+                <li><i>fr</i> - фракционна единица</li>
+                <li><i>repeat()</i> - повтаряне на стойности</li>
+                <li><i>minmax()</i> - минимална и максимална стойност</li>
+                <li><i>auto-fill</i> - автоматично запълване</li>
+                <li><i>auto-fit</i> - автоматично напасване</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-weight-600 my-1">Подравняване и разпределение</h3>
+              <ul>
+                <li><i>justify-content</i> - хоризонтално разпределение</li>
+                <li><i>align-content</i> - вертикално разпределение</li>
+                <li><i>place-content</i> - комбинация от двете</li>
+                <li><i>place-items</i> - подравняване на всички елементи</li>
+              </ul>
+            </div>
+          </div>
+          <p>
+            Най-основните свойства на контейнера са
+            <i>grid-template-columns</i> и <i>grid-template-rows</i>.
+          </p>
+          <h3 class="font-weight-700 heading-s my-2">
+            grid-template-columns и grid-template-rows
+          </h3>
+          <p>
+            Тези свойства определят броя на колоните и редовете в grid-а и също
+            така задават ширината на всяка колона/ред.
+          </p>
+          <p>Нека имплементираме следния grid</p>
+          <div class="flex flex-direction-column flex-center">
+            <div class="img img-ex-grid-4x2"></div>
+            <p>
+              Фиг. 7 - Източник:
+              <a
+                href="https://www.freecodecamp.org/news/the-css-handbook-a-handy-guide-to-css-for-developers-b56695917d11/#css-grid"
+                >[1]</a
+              >
+            </p>
+          </div>
+          <p>
+            Трябва ни един елемент, който да бъде държача на нашата мрежа. CSS-а
+            ще изглежда така:
+          </p>
+          <pre><code class="language-css">.container {
+            display: grid;
+            /* 4 колони */
+            grid-template-columns: 1fr 1fr 1fr 1fr;  
+            /* 2 реда */
+            grid-template-rows: 100px 100px;         
+            /* разстояние между елементите */
+            gap: 10px;                              
+          }</code></pre>
+          <h3 class="font-weight-700 heading-s my-2">Автоматични размери</h3>
+          <p>
+            Много пъти може да имате фиксиран размер на горния колонтитул,
+            фиксиран размер на долния колонтитул и основното съдържание, което е
+            гъвкаво по височина, в зависимост от дължината му. В този случай
+            можете да използвате ключовата дума <i>auto</i>:
+          </p>
+          <pre><code class="language-css">.container {
+            display: grid;
+            /* фиксиран размер за header и footer */
+            grid-template-rows: 100px auto 100px;  
+            /* две колони с различно съотношение */
+            grid-template-columns: 1fr 2fr;        
+          }</code></pre>
+          <h3 class="font-weight-700 heading-s my-2">
+            Различни размери на колони и редове
+          </h3>
+          <p>Нека имплементираме следния grid</p>
+          <div class="flex flex-direction-column flex-center">
+            <div class="img img-ex-grid-diff"></div>
+            <p>
+              Фиг. 8 - Източник:
+              <a
+                href="https://www.freecodecamp.org/news/the-css-handbook-a-handy-guide-to-css-for-developers-b56695917d11/#css-grid"
+                >[1]</a
+              >
+            </p>
+          </div>
+          <p>
+            За целта трябва да посочим произволна стойност за всеки ред/колона:
+          </p>
+          <pre><code class="language-css">.container {
+  display: grid;
+  /* фиксирани и гъвкави колони */
+  grid-template-columns: 100px 200px 1fr;  
+  /* различни височини на редовете */
+  grid-template-rows: 50px 150px;          
+  /* разстояние между елементите */
+  gap: 15px;                              
+}</code></pre>
+        </section>
+
+        <section class="my-2">
+          <p>
+            Тъй като вече имаме придобити основни знания по темата CSS Grid е
+            време да видим и нашия първи интерактивен пример:
+          </p>
+        </section>
+
+        <section class="interactive-example">
+          <h1 class="font-weight-700 heading-m my-2">
+            Интерактивен пример с CSS Grid
+          </h1>
+          <div class="flex flex-space-between my-2">
+            <div class="control-group">
+              <button id="addRow" class="btn btn-primary mx-1">
+                Добави ред
+              </button>
+              <button id="removeRow" class="btn btn-light mx-1">
+                Премахни ред
+              </button>
+            </div>
+            <div class="control-group">
+              <button id="addColumn" class="btn btn-primary mx-1">
+                Добави колона
+              </button>
+              <button id="removeColumn" class="btn btn-light mx-1">
+                Премахни колона
+              </button>
+            </div>
+          </div>
+          <div id="interactiveGrid" class="interactive-grid grid">
+            <div class="grid-item black">1</div>
+            <div class="grid-item white">2</div>
+            <div class="grid-item black">3</div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="examples" class="examples">
+      <header class="grid grid-r-c-3">
+        <h1 class="heading-l">Grid в действие - практически примери</h1>
+      </header>
+      <div class="container py-3 px-2 flex flex-direction-column">
+        <section>
+          <p>
+            След като видяхме интерактивния пример и примерни имплементации на
+            различни типове Grid-ове е време да надникнем към 8 модерни CSS
+            Layout-и
+          </p>
+        </section>
+        <section>
+          <h3 class="font-weight-700 heading-m my-2">
+            01. Супер центриран
+            <i>place-items: center</i>
+          </h3>
+          <div class="grid grid-r-auto-3">
+            <div class="flex flex-direction-column flex-center">
+              <div class="img img-ex-1 my-1"></div>
+              <p>Фиг. 9</p>
+            </div>
+            <div class="my-1 overflow-hid">
+              <h3>HTML</h3>
+              <pre><code class="language-html">
+&lt;div class="parent" &gt;
+  &lt;div class="child" contenteditable&gt;
+    :)
+  &lt;/div&gt;
+&lt;/div&gt;
+              </code></pre>
+            </div>
+            <div class="my-1 overflow-hid">
+              <h3>CSS</h3>
+              <pre><code class="language-css">.parent {
+  display: grid;
+  place-items: center;
+  
+  background: lightblue;
+  width: 500px;
+  height: 500px;
+  
+  resize: both;
+  overflow: auto;
+}
+
+.child {
+  // etc.
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: 1px solid red;
+  background: lightpink;
+  font-size: 2rem;
+  text-align: center;
+}
+                </code>
+              </pre>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3 class="font-weight-700 heading-m my-2">
+            02. Странична лента
+            <i>grid-template-columns: minmax(&lt;min>, &lt;max>) ...</i>
+          </h3>
+          <div class="grid grid-r-auto-3">
+            <div class="flex flex-direction-column flex-center">
+              <div class="img img-ex-3 my-1"></div>
+              <p>Фиг. 10</p>
+            </div>
+            <div class="my-1 overflow-hid">
+              <h3>HTML</h3>
+              <pre><code class="language-html">
+&lt;div class="sidebar" contenteditable>
+  Min: 150px
+  &lt;br/>
+  Max: 25%
+&lt;/div>
+&lt;p class="content" contenteditable>
+  Lorem ipsum dolor sit amet consectetur adipi&lt;/p>
+              </code></pre>
+            </div>
+            <div class="my-1 overflow-hid">
+              <h3>CSS</h3>
+              <pre><code class="language-css">body {
+  display: grid;
+  grid-template-columns: minmax(150px, 25%) 1fr;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar {
+  height: 100vh;
+  
+  //   etc.
+  background: lightpink;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.content {
+  padding: 2rem;
+}
+
+body {
+  font-family: system-ui, serif;
+}
+                </code>
+              </pre>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3 class="font-weight-700 heading-m my-2">
+            03. Палачинков стек
+            <i>grid-template-rows: auto 1fr auto</i>
+          </h3>
+          <div class="grid grid-r-auto-3">
+            <div class="flex flex-direction-column flex-center">
+              <div class="img img-ex-4 my-1"></div>
+              <p>Фиг. 11</p>
+            </div>
+            <div class="my-1 overflow-hid">
+              <h3>HTML</h3>
+              <pre><code class="language-html">
+&lt;header>&lt;h1>Header.com&lt;/h1>&lt;/header>
+&lt;main>&lt;/main>
+&lt;footer>Footer Content — Header.com 2020&lt;/footer>
+              </code></pre>
+            </div>
+            <div class="my-1 overflow-hid">
+              <h3>CSS</h3>
+              <pre><code class="language-css">body {
+  display: grid;
+  height: 100vh;
+  grid-template-rows: auto 1fr auto;
+}
+
+// etc
+
+header {
+  background: lightpink;
+  padding: 2rem;
+}
+
+main {
+  background: coral;
+}
+
+footer {
+  background: wheat;
+  padding: 2rem;
+  text-align: center;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+}
+                </code>
+              </pre>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3 class="font-weight-700 heading-m my-2">
+            04. Класически Свети Граал
+            <i>grid-template: auto 1fr auto / auto 1fr auto</i>
+          </h3>
+          <div class="grid grid-r-auto-3">
+            <div class="flex flex-direction-column flex-center">
+              <div class="img img-ex-5 my-1"></div>
+              <p>Фиг. 12</p>
+            </div>
+            <div class="my-1 overflow-hid">
+              <h3>HTML</h3>
+              <pre><code class="language-html">
+&lt;header>&lt;h1 contenteditable>Header.com&lt;/h1>&lt;/header>
+&lt;div class="left-sidebar" contenteditable>Left Sidebar&lt;/div>
+&lt;main contenteditable>&lt;/main>
+&lt;div class="right-sidebar" contenteditable>Right Sidebar&lt;/div>
+&lt;footer contenteditable>Footer Content — Header.com 2020&lt;/footer>
+              </code></pre>
+            </div>
+            <div class="my-1 overflow-hid">
+              <h3>CSS</h3>
+              <pre><code class="language-css">body {
+  display: grid;
+  height: 100vh;
+  grid-template-rows: auto 1fr auto;
+}
+
+// etc
+
+header {
+  background: lightpink;
+  padding: 2rem;
+}
+
+main {
+  background: coral;
+}
+
+footer {
+  background: wheat;
+  padding: 2rem;
+  text-align: center;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+}
+                </code>
+              </pre>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3 class="font-weight-700 heading-m my-2">
+            05. 12-колонна мрежа
+            <i>grid-template: auto 1fr auto / auto 1fr auto</i>
+          </h3>
+          <div class="grid grid-r-auto-3">
+            <div class="flex flex-direction-column flex-center">
+              <div class="img img-ex-6 my-1"></div>
+              <p>Фиг. 13</p>
+            </div>
+            <div class="my-1 overflow-hid">
+              <h3>HTML</h3>
+              <pre><code class="language-html">
+&lt;div class="span-12">Span 12&lt;/div>
+&lt;div class="span-6">Span 6&lt;/div>
+&lt;div class="span-4">Span 4&lt;/div>
+&lt;div class="span-2">Span 2&lt;/div>  
+              </code></pre>
+            </div>
+            <div class="my-1 overflow-hid">
+              <h3>CSS</h3>
+              <pre><code class="language-css">body {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+// etc
+
+div {
+  display: grid;
+  place-items: center;
+}
+
+.span-12 {
+  background: lightpink;
+  grid-column: 1 / 13;
+}
+
+.span-6 {
+  background: lightblue;
+  grid-column: 1 / 7;
+}
+
+.span-4 {
+  background: coral;
+  grid-column: 4 / 9;
+}
+
+.span-2 {
+  background: yellow;
+  grid-column: 3 / 5;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+}
+                </code>
+              </pre>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3 class="font-weight-700 heading-m my-2">
+            06. RAM (Повторение, Автоматично, Минимум-Максимум)
+            <i
+              >grid-template-columns: repeat(auto-fit, minmax(&lt;base>,
+              1fr))</i
+            >
+          </h3>
+          <div class="grid grid-r-auto-3">
+            <div class="flex flex-direction-column flex-center">
+              <div class="img img-ex-7 my-1"></div>
+              <p>Фиг. 14</p>
+            </div>
+            <div class="my-1 overflow-hid">
+              <h3>HTML</h3>
+              <pre><code class="language-html">
+&lt;div>1&lt;/div>
+&lt;div>2&lt;/div>
+&lt;div>3&lt;/div>
+&lt;div>4&lt;/div>
+              </code></pre>
+            </div>
+            <div class="my-1 overflow-hid">
+              <h3>CSS</h3>
+              <pre><code class="language-css">body {
+   display: grid;
+   height: 100vh;
+   gap: 1rem;
+   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+ }
+ 
+ // etc
+ 
+ div {
+   display: grid;
+   place-items: center;
+   background: lightpink;
+ }
+ 
+ body {
+   font-family: system-ui, sans-serif;
+ }
+                </code>
+              </pre>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3 class="font-weight-700 heading-m my-2">
+            07. Ограничаване на стила
+            <i>clamp(&lt;min>, &lt;actual>, &lt;max>)</i>
+          </h3>
+          <div class="grid grid-r-auto-3">
+            <div class="flex flex-direction-column flex-center">
+              <div class="img img-ex-9 my-1"></div>
+              <p>Фиг. 15</p>
+            </div>
+            <div class="my-1 overflow-hid">
+              <h3>HTML</h3>
+              <pre><code class="language-html">
+&lt;div class="card">
+&lt;h1>Title Here&lt;/h1>
+&lt;div class="visual">&lt;/div>
+&lt;p>Descriptive Text. Lorem ipsum dolor si&lt;/p>
+&lt;br/>
+&lt;p>Lorem ipsum dolor sit amet cons&lt;/p>
+&lt;/div>
+              </code></pre>
+            </div>
+            <div class="my-1 overflow-hid">
+              <h3>CSS</h3>
+              <pre><code class="language-css">body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+
+.visual {
+  height: 100px;
+  width: 100%;
+  background: wheat;
+  margin: 0.5rem 0;
+}
+
+.card {
+  width: clamp(45ch, 50%, 75ch);
+  display: flex;
+  flex-direction: column;
+  background: lightpink;
+  padding: 1rem;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+}
+
+h1 {
+  font-size: 1.5rem;
+}
+                </code>
+              </pre>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3 class="font-weight-700 heading-m my-2">
+            08. Зачитане на пропорциите
+            <i>aspect-ratio: &lt;width> / &lt;height></i>
+          </h3>
+          <div class="grid grid-r-auto-3">
+            <div class="flex flex-direction-column flex-center">
+              <div class="img img-ex-10 my-1"></div>
+              <p>Фиг. 16</p>
+            </div>
+            <div class="my-1 overflow-hid">
+              <h3>HTML</h3>
+              <pre><code class="language-html">
+&lt;div class="card">
+  &lt;h1>Title Here&lt;/h1>
+  &lt;div class="visual">&lt;/div>
+  &lt;p>Descriptive Text. Lorem ipsum dolo&lt;/p>
+&lt;/div>
+              </code></pre>
+            </div>
+            <div class="my-1 overflow-hid">
+              <h3>CSS</h3>
+              <pre><code class="language-css">body {
+   display: grid;
+   place-items: center;
+   height: 100vh;
+ }
+ 
+ .visual {
+   aspect-ratio: 16/9;
+   background: wheat;
+   margin: 0.5rem 0;
+ }
+ 
+ .card {
+   width: 80%;
+   display: flex;
+   flex-direction: column;
+   background: lightpink;
+   padding: 1rem;
+ }
+ 
+ body {
+   font-family: system-ui, sans-serif;
+ }
+ 
+ h1 {
+   font-size: 1.5rem;
+ }
+                </code>
+              </pre>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="limits" class="limits">
+      <header class="grid grid-r-c-3">
+        <h1 class="heading-l">Ограничения и добри практики</h1>
+      </header>
+      <div class="container py-3 px-2 flex flex-direction-column">
+        <section>
+          <h1 class="font-weight-700 heading-m my-2">Поддръжка на браузъри</h1>
+          <p>
+            CSS Grid е сравнително нова технология, която се поддържа от всички
+            модерни браузъри. Към март 2017 г. повечето браузъри вече поддържат
+            нативно CSS Grid без префикси:
+          </p>
+          <ul class="mx-1">
+            <li>Chrome (включително на Android)</li>
+            <li>Firefox</li>
+            <li>Safari (включително на iOS)</li>
+            <li>Opera</li>
+          </ul>
+          <p>
+            Internet Explorer 11 също поддържа CSS Grid, но с префикс <i>-ms-</i> и с остарял
+            синтаксис. Това означава, че ако трябва да поддържате IE, ще трябва
+            да използвате по-стария синтаксис или да използвате fallback
+            решения. (за справка - таблицата долу)
+          </p>
+          <div class="flex flex-direction-column flex-center">
+            <h3 class="font-weight-600 my-1 flex-self-align-left">Актуална таблица с поддръжка на браузъри</h3>
+            <div class="iframe-wrapper">
+              <iframe src="https://caniuse.com/css-grid" title="W3Schools Free Online Web Tutorials" sandbox></iframe>
+            </div>
+              <p class="my-1">Източник: <a
+                      href="https://caniuse.com/css-grid"
+                      >[7]</a
+                    >
+              </p>
+          </div>
+        </section>
+
+        <section>
+          <h1 class="font-weight-700 heading-m my-2">
+            Достъпност (Accessibility)
+          </h1>
+          <p>
+            Когато използвате CSS Grid, е важно да се уверите, че вашият код е
+            достъпен за всички потребители. Ето няколко важни аспекта:
+          </p>
+          <ul>
+            <li>
+              <strong>Подредба на съдържанието:</strong> CSS Grid позволява
+              визуална промяна на подредбата на елементите, но това не трябва да
+              засяга логическия ред на съдържанието. Уверете се, че DOM
+              структурата следва логическия ред на информацията.
+            </li>
+            <li>
+              <strong>Четливост:</strong> Избягвайте прекалено сложни grid
+              структури, които могат да затруднят навигацията с клавиатура или
+              екранни четци.
+            </li>
+            <li>
+              <strong>Отзивчивост:</strong> При проектиране на отзивчиви
+              layouts, уверете се, че промяната в подредбата не води до
+              объркване или загуба на контекст за потребителите.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h1 class="font-weight-700 heading-m my-2">Добри практики</h1>
+          <div class="grid grid-r-2 grid-c-2 grid-gap-m">
+            <div>
+              <h3 class="font-weight-600 my-1">Семантична структура</h3>
+              <p>
+                Използвайте семантични HTML елементи заедно с CSS Grid. Това
+                подобрява достъпността и поддръжката на кода.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-weight-600 my-1">Прогресивно подобрение</h3>
+              <p>
+                Предоставете fallback стилове за браузъри, които не поддържат
+                CSS Grid. Това осигурява базова функционалност за всички
+                потребители.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-weight-600 my-1">
+                Оптимизация на производителността
+              </h3>
+              <p>
+                Избягвайте прекалено сложни grid структури, които могат да
+                забавят рендерирането. Използвайте <i>grid-template-areas</i> за
+                по-ясна и поддържаема структура.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-weight-600 my-1">Тестване</h3>
+              <p>
+                Регулярно тествайте вашите grid layouts в различни браузъри и
+                устройства. Използвайте инструменти за разработчици за откриване
+                на потенциални проблеми.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h1 class="font-weight-700 heading-m my-2">Често срещани проблеми</h1>
+          <ul>
+            <li>
+              <strong>Прекалено сложни grid структури:</strong> Това може да
+              доведе до трудности при поддръжка и лоша производителност.
+            </li>
+            <li>
+              <strong>Несъответствие между визуална и DOM структура:</strong>
+              Може да създаде проблеми с достъпността и SEO.
+            </li>
+            <li>
+              <strong>Липса на fallback решения:</strong> Може да доведе до лошо
+              потребителско изживяване в по-стари браузъри.
+            </li>
+            <li>
+              <strong>Прекалено голяма зависимост от фиксирани размери:</strong>
+              Това може да създаде проблеми при отзивчиви дизайни.
+            </li>
+          </ul>
+        </section>
+      </div>
+    </section>
+
+    <section id="conc" class="conc">
+      <header class="grid grid-r-c-3">
+        <h1 class="heading-l">Заключение</h1>
+      </header>
+      <div class="container py-3 px-2 flex flex-direction-column">
+        <section>
+          <p>
+            CSS Grid Layout представлява революционна промяна в начина, по който
+            създаваме уеб интерфейси. Като първия CSS модул, създаден специално
+            за решаване на проблеми с оформлението, той предлага безпрецедентна
+            гъвкавост и мощност.
+          </p>
+        </section>
+
+        <section>
+          <h1 class="font-weight-700 heading-m my-2">Ключови предимства</h1>
+          <div class="grid grid-r-2 grid-c-2 grid-gap-m">
+            <div>
+              <h3 class="font-weight-600 my-1">Двуизмерно оформление</h3>
+              <p>
+                За разлика от Flexbox, който работи само в едно измерение, CSS
+                Grid позволява едновременен контрол върху редовете и колоните,
+                което го прави идеален за сложни layouts.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-weight-600 my-1">Гъвкавост</h3>
+              <p>
+                Съчетаването на фиксирани и гъвкави размери, автоматично
+                разпределение и мощни функции като <i>minmax()</i> и
+                <i>repeat()</i> позволява създаването на адаптивни дизайни с
+                минимален код.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-weight-600 my-1">Поддръжка</h3>
+              <p>
+                С поддръжка от всички модерни браузъри, CSS Grid вече е напълно
+                готов за производствена употреба. Въпреки че IE изисква
+                специален синтаксис, това не е пречка за внедряването му.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-weight-600 my-1">Семантика</h3>
+              <p>
+                Grid позволява разделяне на визуалното оформление от HTML
+                структурата, което подобрява достъпността и поддръжката на кода.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h1 class="font-weight-700 heading-m my-2">Бъдещето на CSS Grid</h1>
+          <p>
+            CSS Grid продължава да се развива с нови функции и подобрения. Някои
+            от най-интересните разработки включват:
+          </p>
+          <ul>
+            <li>
+              <strong>Subgrid:</strong> Позволява на вложени grid контейнери да
+              наследяват размерите на родителския grid, което решава
+              дългогодишни проблеми с вложени layouts.
+            </li>
+            <li>
+              <strong>Auto-placement:</strong> Става все по-мощен с нови ключови
+              думи като <i>dense</i> и подобрена поддръжка за автоматично
+              разпределение на елементи.
+            </li>
+            <li>
+              <strong>Grid Level 2:</strong> Включва нови функции за по-добро
+              управление на grid областите и по-голяма гъвкавост при създаване
+              на сложни layouts.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h1 class="font-weight-700 heading-m my-2">Практически приложения</h1>
+          <p>CSS Grid вече се използва успешно в множество реални проекти:</p>
+          <ul>
+            <li>
+              <strong>Съвременни уеб приложения:</strong> За създаване на
+              сложни, адаптивни интерфейси с минимален код.
+            </li>
+            <li>
+              <strong>Дизайн системи:</strong> За стандартизиране на layouts и
+              подобряване на консистентността.
+            </li>
+            <li>
+              <strong>Отзивчиви уебсайтове:</strong> За създаване на layouts,
+              които се адаптират плавно към различни размери на екрана.
+            </li>
+            <li>
+              <strong>Интерактивни приложения:</strong> За динамично
+              преоформление на съдържанието без JavaScript.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <p class="my-2">
+            В заключение, CSS Grid представлява мощна и зряла технология, която
+            променя начина, по който мислим за уеб оформление. С неговата
+            поддръжка от всички модерни браузъри и постоянно развиващите се
+            възможности, той е незаменим инструмент в арсенала на всеки
+            съвременен уеб разработчик.
+          </p>
+        </section>
+      </div>
+    </section>
+
+    <footer id="src" class="py-2">
+      <div class="container px-2">
+        <h1 class="font-weight-700 heading-l">Източници</h1>
+        <div class="srcs">
+          <p>
+            [1] Flavio Copes, "The CSS Handbook: A Handy Guide to CSS for
+            Developers", зададен/публикуван April 24, 2019, [<a
+              href="https://www.freecodecamp.org/news/the-css-handbook-a-handy-guide-to-css-for-developers-b56695917d11/#css-grid"
+              >https://www.freecodecamp.org/news/the-css-handbook-a-handy-guide-to-css-for-developers-b56695917d11/#css-grid</a
+            >]
+          </p>
+          <p>
+            [2] Una Kravets, "1 Line Layouts", зададен/публикуван [<a
+              href="https://1linelayouts.glitch.me/"
+            >
+              https://1linelayouts.glitch.me/</a
+            >]
+          </p>
+
+          <p>
+            [3] Una Kravets, Jeremy Wagner, Vladimir Levin, "content-visibility:
+            the new CSS property", зададен/публикуван August 5, 2020 [<a
+              href="https://web.dev/content-visibility/"
+            >
+              https://web.dev/content-visibility/</a
+            >]
+          </p>
+
+          <p>
+            [4] Chris House, "A Complete Guide to Grid", зададен/публикуван Sep
+            26, 2024 [<a
+              href="https://css-tricks.com/snippets/css/complete-guide-grid/"
+            >
+              https://css-tricks.com/snippets/css/complete-guide-grid/</a
+            >]
+          </p>
+
+          <p>
+            [5] W3Schools, "CSS Grid Layout", зададен/публикуван [<a
+              href="https://www.w3schools.com/css/css_grid.asp"
+            >
+              https://www.w3schools.com/css/css_grid.asp</a
+            >]
+          </p>
+          <p>
+            [6] Mikhaél Minisini, "Web layouts - Part 2: State of the art,
+            Flexbox and Grid.", зададен/публикуван April, 2020, [<a
+              href="https://apptitude.ch/en/development/web-layout-part-2-flexbox-and-grid/"
+              >https://apptitude.ch/en/development/web-layout-part-2-flexbox-and-grid/</a
+            >]
+          </p>
+          <p>
+            [7] Alexis Deveria, "Can i use css grid?", [<a
+              href="https://caniuse.com/css-grid"
+              >https://caniuse.com/css-grid</a
+            >]
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="javascript/main.js"></script>
+  </body>
+</html>
