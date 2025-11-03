@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="dist/css/main.min.css" />
+    <title>Registration Form</title>
+  </head>
+  <body>
+    <main>
+      <section class="container py-2 px-1">
+        <h1 class="heading-l text-align-center">Registration Form</h1>
+        <form id="registrationForm" class="py-1">
+          <div class="form-group flex flex-direction-column">
+            <div class="flex flex-space-between flex-align-center">
+              <label for="username" class="my-1"
+                >Username (3-10 characters):</label
+              >
+              <span class="color-red">*</span>
+            </div>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="ex. myname"
+            />
+            <div id="username-error" class="error"></div>
+          </div>
+
+          <div class="form-group flex flex-direction-column">
+            <div class="flex flex-space-between flex-align-center">
+              <label for="name" class="my-1"
+                >First Name (max 50 characters):</label
+              >
+              <span class="color-red">*</span>
+            </div>
+            <input type="text" id="name" name="name" placeholder="ex. Ivana" />
+            <div id="name-error" class="error"></div>
+          </div>
+
+          <div class="form-group flex flex-direction-column">
+            <div class="flex flex-space-between flex-align-center">
+              <label for="family-name" class="my-1"
+                >Last Name (max 50 characters):</label
+              >
+              <span class="color-red">*</span>
+            </div>
+            <input
+              type="text"
+              id="family-name"
+              name="family-name"
+              placeholder="ex. Georgieva"
+            />
+            <div id="family-name-error" class="error"></div>
+          </div>
+
+          <div class="form-group flex flex-direction-column">
+            <div class="flex flex-space-between flex-align-center">
+              <label for="email" class="my-1">Email:</label>
+              <span class="color-red">*</span>
+            </div>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="ex. myemail@email.com"
+            />
+            <div id="email-error" class="error"></div>
+          </div>
+
+          <div class="form-group flex flex-direction-column">
+            <div class="flex flex-space-between flex-align-center">
+              <label for="password" class="my-1"
+                >Password (6-10 characters, must include uppercase, lowercase
+                and numbers):</label
+              >
+              <span class="color-red">*</span>
+            </div>
+            <input type="password" id="password" name="password" />
+            <div id="password-error" class="error"></div>
+          </div>
+
+          <div>
+            <h1 class="heading-s">Address (Optional)</h1>
+            <div class="form-group flex flex-direction-column">
+              <label for="street" class="my-1">Street:</label>
+              <input
+                type="text"
+                id="street"
+                name="street"
+                placeholder="ex. Some Street №10"
+              />
+              <div id="street-error" class="error"></div>
+            </div>
+
+            <div class="form-group flex flex-direction-column">
+              <label for="city" class="my-1">City:</label>
+              <input type="text" id="city" name="city" placeholder="ex. City" />
+              <div id="city-error" class="error"></div>
+            </div>
+
+            <div class="form-group flex flex-direction-column">
+              <label for="postal-code" class="my-1"
+                >Postal Code (Format: 11111-1111 or 1111):</label
+              >
+              <input
+                type="text"
+                id="postal-code"
+                name="postal-code"
+                placeholder="ex. 1111/11111-1111"
+              />
+              <div id="postal-code-error" class="error"></div>
+            </div>
+          </div>
+
+          <button type="submit" id="register-btn" class="btn btn-primary py-2">
+            Register
+          </button>
+        </form>
+        <div id="form-error" class="error mt-2"></div>
+        <div id="success" class="mt-2 success"></div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>

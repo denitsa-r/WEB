@@ -1,0 +1,102 @@
+@import "config";
+@import "utilities";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Montserrat", "sans-serif";
+  font-size: 1rem;
+  line-height: 1.6;
+  @include set-background($light_color);
+}
+
+a {
+  text-decoration: none;
+  color: $primary_color;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  width: 100%;
+}
+
+p {
+  margin-bottom: 0.5rem;
+}
+
+section {
+  header {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 600px;
+
+    h1 {
+      font-size: 2rem;
+      background: black;
+      grid-column: 2;
+      grid-row: 2;
+      padding: 2% 5%;
+      margin: auto;
+    }
+  }
+}
+
+h1 {
+  font-weight: 700;
+}
+
+.grid-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  border-radius: 4px;
+  transition: transform 0.3s;
+  min-height: 100px;
+
+  &.black {
+    @include set-background($light_color);
+  }
+
+  &.white {
+    @include set-background($dark_color);
+  }
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+span {
+  font-size: 1.2rem;
+}
+
+input {
+  padding: 0.75rem;
+  @include set-background(#fff);
+  border: none;
+  border-radius: 10px;
+}
+
+label {
+  font-weight: 600;
+}
+
+.error {
+  color: $danger_color;
+  font-weight: 700;
+}
+
+.success {
+  color: $success-color;
+  font-weight: 700;
+}
