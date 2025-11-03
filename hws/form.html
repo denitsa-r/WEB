@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="main.css" />
+    <title>Register form</title>
+  </head>
+  <body>
+    <main>
+      <div class="wrapper">
+        <section>
+          <!-- image -->
+          <div class="bg-dog"></div>
+        </section>
+        <section>
+          <!-- form -->
+          <h1 class="mb-20">Yay, puppies! Register your puppy today!</h1>
+          <form>
+            <div class="mb-20 d-flex-column">
+              <label for="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                placeholder="Pet's name"
+                class="my-20"
+              />
+            </div>
+            <div class="mb-20 btn-upload">
+              <label for="upload" class="btn">Upload Photo</label>
+              <input type="file" id="upload" accept="image/*" />
+            </div>
+            <div class="mb-20 d-flex-column">
+              <label for="breed">Breed</label>
+              <select id="breed">
+                <option value="">Choose a breed</option>
+                <option value="german-shepherd">Germen Shepherd</option>
+                <option value="husky">Husky</option>
+                <option value="labrador">Labrador</option>
+                <option value="golden-retriever">Golden Retriever</option>
+                <option value="beagle">Beagle</option>
+              </select>
+            </div>
+            <div class="mb-20 d-flex-column">
+              <label for="birthday">Birthday</label>
+              <input
+                type="date"
+                id="birthday"
+                placeholder="dd/mm/yyyy"
+                pattern="\d{2}/\d{2}/\d{4}"
+                required
+              />
+            </div>
+            <div class="mb-20 d-flex-column">
+              <label>Gender</label>
+              <div class="d-flex">
+                <div class="radio-item d-flex">
+                  <input
+                    type="radio"
+                    name="gender"
+                    id="female"
+                    value="Female"
+                  />
+                  <label for="female">Female</label>
+                </div>
+                <div class="radio-item d-flex">
+                  <input type="radio" name="gender" id="male" value="Male" />
+                  <label for="male">Male</label>
+                </div>
+              </div>
+            </div>
+            <div class="mb-20 d-flex-column">
+              <label for="weight">Weight (lbs)</label>
+              <input
+                type="number"
+                id="weight"
+                placeholder="Enter weight"
+                min="0"
+              />
+            </div>
+            <div class="btns d-flex">
+              <button class="btn">Back</button>
+              <button class="btn btn-primary">Next</button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
